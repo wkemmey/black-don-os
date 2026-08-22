@@ -286,3 +286,6 @@ update rust devenv
 set noctalia to change wallpaper only, not call hook
 set fuzzel to change theme, one of which is material via mutagen (old hook), set hot key, maybe include mutagen styles (like fruit salad)
 just include a few wallpapers in git repo, but discover wallpapers on disk in dropbox if there
+name workspaces
+start some apps every time--obsidian youtube music email
+sonos
