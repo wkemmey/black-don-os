@@ -156,7 +156,7 @@ binds {
     Mod+T { spawn "foot"; }
     Mod+Return { spawn "foot"; }
     // mod+Y { spawn "fuzzel"; }
-    Mod+Space { spawn "noctalia-shell" "ipc" "call" "launcher" "toggle"; }
+    Mod+Space { spawn "noctalia" "msg" "panel-toggle" "launcher"; }
     Mod+Shift+Ctrl+C { spawn "foot" "claude"; }
     Mod+B { spawn "obsidian"; }
     Mod+F { spawn "firefox"; }
@@ -166,13 +166,13 @@ binds {
     Mod+E { spawn "thunar"; }
     Mod+Ctrl+V { spawn "virt-manager"; }
     Mod+Ctrl+E { spawn "emopicker"; }
-    Mod+Shift+E { spawn "noctalia-shell" "ipc" "call" "launcher" "emoji"; }
+    Mod+Shift+E { spawn "noctalia" "msg" "panel-toggle" "launcher" "/emo"; }
 
     // noctalia controls
-    // mod+Comma { spawn "noctalia-shell" "ipc" "call" "settings" "toggle"; }
-    // mod+Alt+S { spawn "noctalia-shell" "ipc" "call" "settings" "toggle"; }
-    // mod+Shift+C { spawn "noctalia-shell" "ipc" "call" "controlCenter" "toggle"; }
-    Mod+Z { spawn "noctalia-shell" "ipc" "call" "lockScreen" "lock"; }
+    // mod+Comma { spawn "noctalia" "msg" "settings-toggle"; }
+    // mod+Alt+S { spawn "noctalia" "msg" "settings-toggle"; }
+    // mod+Shift+C { spawn "noctalia" "msg" "panel-toggle" "control-center"; }
+    Mod+Z { spawn "noctalia" "msg" "session" "lock"; }
 
     // keyboard brightness controls
     XF86KbdBrightnessUp allow-when-locked=true { spawn "kbdbrite.sh" "up"; }
@@ -398,7 +398,7 @@ window-rule {
 
 
 spawn-at-startup "bash" "-c" "wl-paste --watch cliphist store &"
-spawn-at-startup "noctalia-shell"
+spawn-at-startup "noctalia"
 spawn-at-startup "/usr/lib/mate-polkit/polkit-mate-authentication-agent-1"
 spawn-at-startup "vesktop"
 spawn-at-startup "Telegram"

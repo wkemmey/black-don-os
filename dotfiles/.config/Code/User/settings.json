@@ -108,5 +108,6 @@
     "editorInlayHint.background": "#1a1a1a80",
     "editorInlayHint.parameterForeground": "#8a7d65",
     "editorInlayHint.typeForeground": "#5c7080"
-  }
+  },
+  "workbench.colorTheme": "Dark Modern"
 }
