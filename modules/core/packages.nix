@@ -56,7 +56,7 @@
 
     # media applications
     picard # music metadata editor and cover art downloader (for user)
-    youtube-music # youtube music client (for user)
+    pear-desktop # youtube music client (for user)
 
     # productivity and utilities
     _1password-gui # password manager (for user)
@@ -94,7 +94,7 @@
     nix-direnv # fast direnv evaluation for nix (for user)
 
     # nix language tools
-    nixfmt-rfc-style # nix code formatter (for user)
+    nixfmt # nix code formatter (for user)
     nixd # nix language server (for user)
     nil # nix language server (for user)
 
