@@ -289,3 +289,7 @@ just include a few wallpapers in git repo, but discover wallpapers on disk in dr
 name workspaces
 start some apps every time--obsidian youtube music email
 sonos
+
+
+
+set location in noctalia config via variables?  maybe not because managing dotfiles separately

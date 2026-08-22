@@ -1,0 +1,46 @@
+[config]
+
+# ── Bar ────────────────────────────────────────────────────────────────────────
+
+[bar.main]
+position           = "bottom"
+background_opacity = 0.0
+margin_ends        = 0
+margin_edge        = 0
+reserve_space      = true
+
+start  = ["workspaces", "active_window", "media"]
+center = ["clock"]
+end    = ["sysmon", "notifications", "bluetooth", "brightness", "wallpaper", "volume", "control-center"]
+
+# ── Wallpaper ──────────────────────────────────────────────────────────────────
+
+[wallpaper]
+enabled   = true
+directory = "/home/whit/nixos_config/wallpapers/current_resolution"
+fill_mode = "crop"
+
+[wallpaper.automation]
+enabled          = true
+interval_seconds = 300
+order            = "random"
+
+# ── Theme ──────────────────────────────────────────────────────────────────────
+
+[theme]
+source = "wallpaper"
+mode   = "dark"
+
+# ── Location ──────────────────────────────────────────────────────────────────
+
+[location]
+address = "Fredericksburg, VA"
+
+[weather]
+enabled = true
+unit    = "fahrenheit"
+
+# ── Hooks ──────────────────────────────────────────────────────────────────────
+
+[hooks]
+wallpaper_changed = "~/.config/matugen/wallpaper-hook.sh"
