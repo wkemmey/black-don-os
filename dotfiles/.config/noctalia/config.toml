@@ -1,5 +1,14 @@
 [config]
 
+# ── Shell ─────────────────────────────────────────────────────────────────────
+
+[shell]
+font_family         = "JetBrainsMono Nerd Font"
+corner_radius_scale = 0.5
+
+[accessibility]
+ui_scale = 1.2
+
 # ── Bar ────────────────────────────────────────────────────────────────────────
 
 [bar.main]
@@ -21,9 +30,7 @@ directory = "/home/whit/nixos_config/wallpapers/current_resolution"
 fill_mode = "crop"
 
 [wallpaper.automation]
-enabled          = true
-interval_seconds = 300
-order            = "random"
+enabled = false
 
 # ── Theme ──────────────────────────────────────────────────────────────────────
 

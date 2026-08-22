@@ -27,7 +27,6 @@
     ~/.config/gtk-4.0/gtk.css: .config/gtk-4.0/gtk.css
     ~/.config/yazi: .config/yazi
     ~/.config/noctalia: .config/noctalia
-    ~/.config/noctalia-shell/settings.json: .config/noctalia-shell/settings.json
     ~/.config/starship.toml: .config/starship.toml
     ~/.config/bat/config: .config/bat/config
     ~/.config/bottom/bottom.toml: .config/bottom/bottom.toml

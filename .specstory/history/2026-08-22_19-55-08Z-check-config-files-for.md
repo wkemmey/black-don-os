@@ -2510,3 +2510,556 @@ _**Agent (copilot/auto)**_
 _**Agent (copilot/auto)**_
 
 Done. The hook now just uses `$NOCTALIA_WALLPAPER_PATH` directly, and the config calls it with no arguments.
+
+---
+
+_**User (2026-08-22 20:31:03Z)**_
+
+so i don't need noctalia/settings.json anymore?  what about colors.json, plugins.json, and user-templates.toml?  colors.json might be used by matugen; i can't remember.  settings.json is huge--are there other settings i should port to config.toml?
+
+---
+
+_**Agent (copilot/auto)**_
+
+<tool-use data-tool-type="generic" data-tool-name="run_in_terminal"><details>
+<summary>Tool use: **run_in_terminal**</summary>
+
+Running ` cat \~/.config/noctalia/colors.json; echo "\-\-\-"; cat \~/.config/noctalia/plugi...`
+
+Check the contents of the remaining noctalia config files
+
+```bash
+cat ~/.config/noctalia/colors.json; echo "---"; cat ~/.config/noctalia/plugins.json; echo "---"; cat ~/.config/noctalia/user-templates.toml
+```
+
+**Result:**
+
+```
+{
+  "mPrimary": "#5dd5fc",
+  "mOnPrimary": "#003544",
+
+  "mSecondary": "#88d1ec",
+  "mOnSecondary": "#003544",
+
+  "mTertiary": "#b6c4ff",
+  "mOnTertiary": "#1d2d61",
+
+  "mError": "#ffb4ab",
+  "mOnError": "#690005",
+
+  "mSurface": "#11131c",
+  "mOnSurface": "#e1e1ef",
+
+  "mSurfaceVariant": "#1d1f29",
+  "mOnSurfaceVariant": "#c2c5dd",
+  
+  "mOutline": "#414659",
+  "mShadow": "#000000",
+
+  "mHover": "#b6c4ff",
+  "mOnHover": "#1d2d61"
+} ---
+{
+    "sources": [
+        {
+            "enabled": true,
+            "name": "Noctalia Plugins",
+            "url": "https://github.com/noctalia-dev/noctalia-plugins"
+        }
+    ],
+    "states": {
+    },
+    "version": 2
+}
+---
+[config]
+
+# User-defined templates
+# Add your custom templates below
+# Example:
+# [templates.myapp]
+# input_path = "~/.config/noctalia/templates/myapp.css"
+# output_path = "~/.config/myapp/theme.css"
+# post_hook = "myapp --reload-theme"
+```
+</details></tool-use>
+
+_**Agent (copilot/auto)**_
+
+<tool-use data-tool-type="generic" data-tool-name="run_in_terminal"><details>
+<summary>Tool use: **run_in_terminal**</summary>
+
+Running ` grep \-r "colors.json" \~/.config/matugen/ /home/whit/nixos\_config/dotfiles/.c...`
+
+Check if matugen references colors.json
+
+```bash
+grep -r "colors.json" ~/.config/matugen/ /home/whit/nixos_config/dotfiles/.config/matugen/ 2>/dev/null; echo "---"; grep -r "noctalia" ~/.config/matugen/ /home/whit/nixos_config/dotfiles/.config/matugen/ 2>/dev/null | grep -v ".sh:" | head -20
+```
+
+**Result:**
+
+```
+/home/whit/.config/matugen/config.toml:vscode = { input_path = "~/.config/matuge
+n/templates/vscode-colors.json", output_path = "~/.config/matugen/vscode-colors.
+json" }
+/home/whit/.config/matugen/config.toml:pywalfox = { input_path = "~/.config/matu
+gen/templates/pywalfox.json", output_path = "~/.cache/wal/colors.json", post_hoo
+k = "pywalfox update" }
+/home/whit/.config/matugen/merge-vscode-colors.sh:COLORS_FILE="$HOME/.config/mat
+ugen/vscode-colors.json"
+/home/whit/nixos_config/dotfiles/.config/matugen/config.toml:vscode = { input_pa
+th = "~/.config/matugen/templates/vscode-colors.json", output_path = "~/.config/
+matugen/vscode-colors.json" }
+/home/whit/nixos_config/dotfiles/.config/matugen/config.toml:pywalfox = { input_
+path = "~/.config/matugen/templates/pywalfox.json", output_path = "~/.cache/wal/
+colors.json", post_hook = "pywalfox update" }
+/home/whit/nixos_config/dotfiles/.config/matugen/merge-vscode-colors.sh:COLORS_F
+ILE="$HOME/.config/matugen/vscode-colors.json"
+---
+```
+</details></tool-use>
+
+_**Agent (copilot/auto)**_
+
+<tool-use data-tool-type="generic" data-tool-name="run_in_terminal"><details>
+<summary>Tool use: **run_in_terminal**</summary>
+
+Running ` cat \~/.config/noctalia/colors.json | grep \-c "." ; ls \~/.local/state/noctali...`
+
+Check if noctalia 5.0 reads colors.json
+
+```bash
+cat ~/.config/noctalia/colors.json | grep -c "." ; ls ~/.local/state/noctalia/ | head; grep -r "colors.json" /nix/store/5m6g3m4cc4pj5b0kfv45nxk41zj19njs-noctalia-5.0.0/ 2>/dev/null | head -5
+```
+
+**Result:**
+
+```
+19
+community-palettes
+community-templates
+notification_history.json
+plugins
+recently_used.json
+settings.toml
+state.toml
+usage_counts.json
+wallpaper_shuffle.json
+```
+</details></tool-use>
+
+_**Agent (copilot/auto)**_
+
+<tool-use data-tool-type="generic" data-tool-name="run_in_terminal"><details>
+<summary>Tool use: **run_in_terminal**</summary>
+
+Running ` noctalia config export 2>/dev/null | grep \-i "color\\|palette\\|theme" | head ...`
+
+Check how noctalia 5.0 handles colors/palettes
+
+```bash
+noctalia config export 2>/dev/null | grep -i "color\|palette\|theme" | head -20; echo "---"; find ~/.local/state/noctalia/community-palettes -name "*.json" 2>/dev/null | head -5
+```
+
+**Result:**
+
+```
+        background_color = "surface_variant"
+[theme]
+---
+/home/whit/.local/state/noctalia/community-palettes/.catalog/palettes.json
+```
+</details></tool-use>
+
+_**Agent (copilot/auto)**_
+
+<tool-use data-tool-type="generic" data-tool-name="fetch_webpage"><details>
+<summary>Tool use: **fetch_webpage**</summary>
+
+Fetched https://docs.noctalia.dev/noctalia/theming/palette/
+
+**Input:**
+
+- query: `palette custom colors.json file format custom palette`
+- urls: `["https://docs.noctalia.dev/noctalia/theming/palette/"]`
+
+**Result:**
+
+```
+Here is some relevant context from the web page https://docs.noctalia.dev/noctalia/theming/palette/:
+...
+# Palette
+...
+## Color Roles
+
+Section titled “Color Roles”
+User-facing color settings reference these 16 roles with lowercase `snake_case` names. Prefer role names so UI colors follow the active palette. Fixed hex
+colors (`#RGB`, `#RGBA`, `#RRGGBB`, `#RRGGBBAA`) are supported where a deliberately non-palette color is needed.
+
+
+|  |
+|  |
+| primary | mPrimary | Primary accent for buttons, links, highlights, and active states. |
+| on_primary | mOnPrimary | Text and icons placed on primary surfaces. |
+| secondary | mSecondary | Secondary accent color. |
+| on_secondary | mOnSecondary | Text and icons placed on secondary surfaces. |
+| tertiary | mTertiary | Tertiary accent color. |
+| on_tertiary | mOnTertiary | Text and icons placed on tertiary surfaces. |
+| error | mError | Error and destructive-action color. |
+| on_error | mOnError | Text and icons placed on error surfaces. |
+| surface | mSurface | Main shell background color. |
+...
+...
+# Palette
+...
+## Color Roles
+...
+| on_surface | mOnSurface | Primary text and icon color on shell surfaces. |
+| surface_variant | mSurfaceVariant | Secondary background for cards, panels, and lower-emphasis surfaces. |
+| on_surface_variant | mOnSurfaceVariant | Secondary text and icon color on variant surfaces. |
+| outline | mOutline | Borders, separators, and subtle outlines. |
+| shadow | mShadow | Shadow color. |
+| hover | mHover | Hover and interactive highlight background. |
+| on_hover | mOnHover | Text and icons placed on hover surfaces. |
+
+
+Settings role pickers expose these role names first. Template files access these
+roles and the full Material token set through the [Template Reference](https://docs.noctalia.dev/noctalia/theming/templates/#available-color-tokens).
+...
+...
+# Palette
+...
+## Custom Palette Files
+
+Section titled “Custom Palette Files”
+When `source = "custom"`, `custom_palette` names a JSON file in the Noctalia co
+… (output truncated)
+```
+</details></tool-use>
+
+_**Agent (copilot/auto)**_
+
+Here's the status of each file:
+
+**`settings.json`** — v4 only, completely ignored by v5. Can be removed from dotfiles.
+
+**`colors.json`** — Also v4-only. It was written *by* noctalia v4 as a state output (the currently active palette), not read by matugen. In v5, palette output goes through the `colors_changed` hook and the template system. Not read by anything now. Can be removed.
+
+**`plugins.json`** — v4 plugin sources config. v5 manages sources internally (you saw it auto-cloning the official/community repos in the log). Not read. Can be removed.
+
+**`user-templates.toml`** — It's empty (just the boilerplate comment), but it causes the startup warning. In v5, user templates go inside `config.toml` under `[theme.templates.user.*]`. Can be removed.
+
+**Worth porting from `settings.json` to config.toml:**
+
+| v4 setting | v5 equivalent | Status |
+|---|---|---|
+| `ui.fontDefault: "JetBrainsMono Nerd Font"` | `[shell] font_family = "JetBrainsMono Nerd Font"` | missing |
+| `general.scaleRatio: 1.2` | `[accessibility] ui_scale = 1.2` | missing |
+| `general.radiusRatio: 0.5` | `[shell] corner_radius_scale = 0.5` | missing |
+| `wallpaper.automationEnabled: false` | `[wallpaper.automation] enabled = false` | currently set to **true** in config.toml (I changed this) |
+| `colorSchemes.generationMethod: "fruit-salad"` | `[theme] wallpaper_scheme = "m3-fruit-salad"` | not needed — handled in the matugen hook |
+| `hooks.wallpaperChange` | `[hooks] wallpaper_changed` | ✓ done |
+| `location.*` | `[location]` / `[weather]` | ✓ done |
+
+The automation flip is notable — your old config had manual wallpaper selection (you'd pick from the wallpaper panel), but I set it to auto-rotate every 5 minutes. Let me know if you want to revert that. Want me to apply the font/scale/radius fixes and clean up the obsolete files now?
+
+---
+
+_**User (2026-08-22 20:36:48Z)**_
+
+yes please, and don't automatically change wallpaper
+
+---
+
+_**Agent (copilot/auto)**_
+
+<tool-use data-tool-type="read" data-tool-name="read_file"><details>
+<summary>Tool use: **read_file**</summary>
+
+Read `config.toml`
+
+**Input:**
+
+- endLine: `60`
+- filePath: `/home/whit/nixos_config/dotfiles/.config/noctalia/config.toml`
+- startLine: `1`
+
+**Result:**
+
+```
+[config]
+
+# ── Bar ────────────────────────────────────────────────────────────────────────
+
+[bar.main]
+position           = "bottom"
+background_opacity = 0.0
+margin_ends        = 0
+margin_edge        = 0
+reserve_space      = true
+
+start  = ["workspaces", "active_window", "media"]
+center = ["clock"]
+end    = ["sysmon", "notifications", "bluetooth", "brightness", "wallpaper", "volume", "control-center"]
+
+# ── Wallpaper ──────────────────────────────────────────────────────────────────
+
+[wallpaper]
+enabled   = true
+directory = "/home/whit/nixos_config/wallpapers/current_resolution"
+fill_mode = "crop"
+
+[wallpaper.automation]
+enabled          = true
+interval_seconds = 300
+order            = "random"
+
+# ── Theme ──────────────────────────────────────────────────────────────────────
+
+[theme]
+source = "wallpaper"
+mode   = "dark"
+
+# ── Location ──────────────────────────────────────────────────────────────────
+
+[location]
+address = "Fredericksburg, VA"
+
+[weather]
+enabled = true
+unit    = "fahrenheit"
+
+# ── Hooks ──────────────────────────────────────────────────────────────────────
+
+[hooks]
+wallpaper_changed = "~/.config/matugen/wallpaper-hook.sh"
+```
+</details></tool-use>
+
+_**Agent (copilot/auto)**_
+
+<tool-use data-tool-type="write" data-tool-name="textEditGroup"><details>
+<summary>Edit: **config.toml**</summary>
+
+@@ lines 3-3 @@
+
+```
+Shell ─────────────────────────────────────────────────────────────────────
+
+[shell]
+font_family         = "JetBrainsMono Nerd Font"
+corner_radius_scale = 0.5
+
+[accessibility]
+ui_scale = 1.2
+
+# ── 
+```
+</details></tool-use>
+
+_**Agent (copilot/auto)**_
+
+<tool-use data-tool-type="write" data-tool-name="textEditGroup"><details>
+<summary>Edit: **config.toml**</summary>
+
+@@ lines 33-35 @@
+
+```
+= false
+```
+</details></tool-use>
+
+_**Agent (copilot/auto)**_
+
+Now remove the obsolete files and update dotbot config: 
+
+_**Agent (copilot/auto)**_
+
+<tool-use data-tool-type="generic" data-tool-name="run_in_terminal"><details>
+<summary>Tool use: **run_in_terminal**</summary>
+
+Running ` rm /home/whit/nixos\_config/dotfiles/.config/noctalia/settings.json \\
+   /hom...`
+
+Remove the obsolete v4 noctalia config files
+
+```bash
+rm /home/whit/nixos_config/dotfiles/.config/noctalia/settings.json \
+   /home/whit/nixos_config/dotfiles/.config/noctalia/colors.json \
+   /home/whit/nixos_config/dotfiles/.config/noctalia/plugins.json \
+   /home/whit/nixos_config/dotfiles/.config/noctalia/user-templates.toml
+```
+
+**Result:**
+
+```
+❯  rm /home/whit/nixos_config/dotfiles/.config/noctalia/settings.json \
+∙    /home/whit/nixos_config/dotfiles/.config/noctalia/colors.json \
+∙    /home/whit/nixos_config/dotfiles/.config/noctalia/plugins.json \
+∙    /home/whit/nixos_config/dotfiles/.config/noctalia/user-templates.toml
+```
+</details></tool-use>
+
+_**Agent (copilot/auto)**_
+
+Now update dotbot — the `~/.config/noctalia` directory symlink covers everything, so the individual file entries for the deleted files just need to be gone (there are none; the whole dir is one symlink). But `noctalia-shell/settings.json` is still valid and stays. Let me verify dotbot has no stale entries for the removed files: 
+
+_**Agent (copilot/auto)**_
+
+<tool-use data-tool-type="generic" data-tool-name="run_in_terminal"><details>
+<summary>Tool use: **run_in_terminal**</summary>
+
+Running ` grep "noctalia" /home/whit/nixos\_config/dotfiles/install.conf.yaml`
+
+Check dotbot config for noctalia entries
+
+```bash
+grep "noctalia" /home/whit/nixos_config/dotfiles/install.conf.yaml
+```
+
+**Result:**
+
+```
+    ~/.config/noctalia: .config/noctalia
+    ~/.config/noctalia-shell/settings.json: .config/noctalia-shell/settings.json
+```
+</details></tool-use>
+
+_**Agent (copilot/auto)**_
+
+Clean — dotbot symlinks the whole `~/.config/noctalia` directory, so there are no per-file entries to remove. Now reload noctalia:  
+
+_**Agent (copilot/auto)**_
+
+<tool-use data-tool-type="generic" data-tool-name="run_in_terminal"><details>
+<summary>Tool use: **run_in_terminal**</summary>
+
+Running ` noctalia msg config\-reload && sleep 1 && tail \-10 \~/.cache/noctalia/noctalia...`
+
+Reload noctalia config and verify it applied
+
+```bash
+noctalia msg config-reload && sleep 1 && tail -10 ~/.cache/noctalia/noctalia.log
+```
+
+**Result:**
+
+```
+ok
+2026-08-22 16:37:02.457 [INF] [config] hooks kinds with commands=1
+2026-08-22 16:37:02.466 [INF] [i18n] language: en (from en-US)
+2026-08-22 16:37:02.477 [INF] [wallpaper] reloading config
+2026-08-22 16:37:02.478 [INF] [config] config changed, reloading
+2026-08-22 16:37:02.479 [INF] [config] 1 bar(s) defined
+2026-08-22 16:37:02.479 [INF] [config] bar order: main
+2026-08-22 16:37:02.479 [INF] [config] idle behaviors=3
+2026-08-22 16:37:02.479 [INF] [config] hooks kinds with commands=1
+2026-08-22 16:37:02.488 [INF] [i18n] language: en (from en-US)
+2026-08-22 16:38:03.266 [INF] [config] 1 bar(s) defined
+```
+</details></tool-use>
+
+_**Agent (copilot/auto)**_
+
+All done. Here's a summary of what changed:
+
+**`config.toml`** — added font, scale, and radius 
+
+** — added font, scale, and radius from v4; disabled wallpaper automation.
+
+**Deleted from dotfiles:**
+- `settings.json` — v4 only, ignored by v5
+- `colors.json` — v4 state output, not read by anything
+- `plugins.json` — v4 plugin sources, v5 manages this internally
+- `user-templates.toml` — was empty, caused a startup warning
+
+The dotbot directory symlink (`~/.config/noctalia → dotfiles/.config/noctalia`) needed no changes since it covers the whole directory.
+
+---
+
+_**User (2026-08-22 20:38:40Z)**_
+
+why is noctalia-shell still needed--you said t's still valid?
+
+---
+
+_**Agent (copilot/auto)**_
+
+<tool-use data-tool-type="generic" data-tool-name="run_in_terminal"><details>
+<summary>Tool use: **run_in_terminal**</summary>
+
+Running ` ls \-la \~/.config/noctalia\-shell/; echo "\-\-\-"; grep \-r "noctalia\-shell" /nix/...`
+
+Check if noctalia 5.0 reads anything from the noctalia-shell config directory
+
+```bash
+ls -la ~/.config/noctalia-shell/; echo "---"; grep -r "noctalia-shell" /nix/store/5m6g3m4cc4pj5b0kfv45nxk41zj19njs-noctalia-5.0.0/ 2>/dev/null | head -5
+```
+
+**Result:**
+
+```
+total 12
+drwxr-xr-x  2 whit users 4096 Dec  9  2025 .
+drwxr-xr-x 39 whit users 4096 Aug 22 15:24 ..
+lrwxrwxrwx  1 whit users   69 Dec  9  2025 settings.json -> /home/whit/nixos_con
+fig/dotfiles/.config/noctalia-shell/settings.json
+---
+```
+</details></tool-use>
+
+_**Agent (copilot/auto)**_
+
+Nothing in the v5 binary references `noctalia-shell`. I was wrong to say it was still valid — I was just noting it was in dotbot. It's a v4 artifact too. Safe to remove both the file and the dotbot entry: 
+
+_**Agent (copilot/auto)**_
+
+<tool-use data-tool-type="generic" data-tool-name="run_in_terminal"><details>
+<summary>Tool use: **run_in_terminal**</summary>
+
+Running ` rm /home/whit/nixos\_config/dotfiles/.config/noctalia\-shell/settings.json && ...`
+
+Remove the obsolete noctalia-shell settings.json and its now-empty directory
+
+```bash
+rm /home/whit/nixos_config/dotfiles/.config/noctalia-shell/settings.json && rmdir /home/whit/nixos_config/dotfiles/.config/noctalia-shell/
+```
+
+**Result:**
+
+```
+
+
+Command produced no output
+```
+</details></tool-use>
+
+_**Agent (copilot/auto)**_
+
+<tool-use data-tool-type="write" data-tool-name="textEditGroup"><details>
+<summary>Edit: **install.conf.yaml**</summary>
+
+@@ lines 29-30 @@ (deleted)
+</details></tool-use>
+
+_**Agent (copilot/auto)**_
+
+Gone. `~/.config/noctalia-shell/` was the v4 config directory — v5 moved everything to `~/.config/noctalia/`.
+
+---
+
+_**User (2026-08-22 20:40:00Z)**_
+
+are the noctalia/colorschemes and noctalia/plugins directories still useful?
+
+---
+
+_**Agent (copilot/auto)**_
+
+<tool-use data-tool-type="generic" data-tool-name="run_in_terminal"><details>
+<summary>Tool use: **run_in_terminal**</summary>
+
+Running ` ls /home/whit/nixos\_config/dotfiles/.config/noctalia/colorschemes/ 2>/dev/nu...`
+</details></tool-use>
