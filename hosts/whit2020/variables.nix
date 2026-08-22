@@ -30,5 +30,5 @@
   enableSyncthing = false;           # syncthing file synchronization
   enableCommunicationApps = false;   # discord, teams, zoom, telegram
   enableProductivityApps = true;     # obsidian, quickemu
-  enableAiCodeEditors = false;       # claude-code, gemini-cli, cursor
+  enableAiCodeEditors = true;        # claude-code, gemini-cli, cursor, opencode, aider
 }

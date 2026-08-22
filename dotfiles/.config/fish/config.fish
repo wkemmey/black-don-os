@@ -52,6 +52,8 @@ direnv hook fish | source
 
 # browser for cli tools
 set -gx BROWSER "xdg-open"
+set -gx EDITOR "hx"
+set -gx VISUAL "hx"
 
 # bat/man configuration
 set -gx MANPAGER "sh -c 'col -bx | bat -l man -p'"
@@ -84,6 +86,7 @@ abbr -a nxcd "cd ~/nixos_config"
 # better defaults
 abbr -a cat bat
 abbr -a man batman
+abbr -a oc opencode
 
 # suppress harmless wayland warnings from electron apps (vs code, etc)
 abbr -a code "code 2>/dev/null"

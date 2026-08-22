@@ -17,6 +17,7 @@ in
       claude-code # claude ai native development environment
       gemini-cli # google gemini cli tool for terminal ai assistance
       aider-chat # terminal-based agentic ai coding assistant
+      opencode # terminal ai coding agent
     ];
   };
 }
